@@ -1,0 +1,80 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "data Visualisation 2.csv"
+    },
+    "width": 500,
+    "height": 400,
+    "params": [
+      {
+        "name": "Year_wanted",
+        "value": 0,
+        "bind": {
+        "input": "range",
+        "min": 1897,
+        "max": 2021,
+        "step": 1,
+        "name": "Year From: "
+        }
+        }        
+    ],
+    "transform": [
+      {"filter": "datum.Year > Year_wanted"}
+    ],
+
+
+
+    
+    "encoding": {
+      "x": {
+        "timeUnit": "year",
+        "field": "Year",
+        "title": "Year"
+        
+      },
+    
+      "tooltip": [
+        {"timeUnit": "yearmonthdate", "field": "Year"},
+        {"field": "Aggregate Average Score", "type": "quantitative"},
+        {"field": "Home Team Average Score", "type": "quantitative"},
+        {"field": "Away Team Average Score", "type": "quantitative"}
+      ]
+    },
+
+    
+      "layer":[{
+        "mark":{"type": "line", "color": "grey"},
+        "encoding":{
+            "y": {"field": "Aggregate Average Score", "type": "quantitative","title": "Score"}
+            }
+        },        
+        {
+        "mark":{"type": "line", "color": "blue"},
+        "encoding":{
+            "y": {"field": "Home Team Average Score", "type": "quantitative"}
+            }
+        },
+        {   
+        "mark":{"type": "line", "color": "orange"},
+        "encoding":{
+            "y": {"field": "Away Team Average Score", "type": "quantitative"}
+            }
+        },
+        {
+        "mark": "rule",
+    "params": [{
+      "name": "hover",
+      "select": {"type": "point", "on": "mouseover"}
+    }],
+    "encoding": {
+      "color": {
+        "condition": {
+          "param": "hover",
+          "empty": false,
+          "value": "black"
+        },
+        "value": "transparent"
+      }
+    }}
+    ]
+}
